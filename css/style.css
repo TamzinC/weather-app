@@ -1,0 +1,60 @@
+/* RESETS */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+/* GLOBAL CLASSES */
+.text-center {
+    text-align: center;
+}
+
+.row, .column {
+    display: flex;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+/* CUSTOM STYLES */
+h1 {
+    margin: 15px;
+}
+
+.weather-header {
+    background-color: #82AAE3;
+    height: 80px;
+}
+
+h2, input, button, hr {
+    margin: 6px;
+    width: 100%;
+}
+
+input {
+    height: 30px;
+    padding: 8px;
+    border-color: lightgrey;
+    border-radius: 4px;
+}
+
+.search-button {
+    background-color: #91D8E4;
+    border: none;
+    border-radius: 4px;
+    height: 25px;
+}
