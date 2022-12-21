@@ -22,36 +22,89 @@
 
 //Add event listener for input (show weather + add to search history if not already there)
 
+// currentDayString = moment().format('dddd, MMMM Do');
+// currentDay.text(currentDayString);
+
+// console.log(currentDay);
+
+$('#search-button').on('click', function () {
+
+    var apiKey = '903bdd38e14db35f1d502c3f3db85a20';
+    var city = $('input'); //this needs to be changed to user input
+
+
+    //API for getting current weather info for a city
+    $.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
+        .then(function (currentData) {
+            var lon = currentData.coord.lon;
+            var lat = currentData.coord.lat;
+
+            console.log(currentData);
+            console.log(`
+            ____Current Conditions____
+            Temp: ${Math.round(currentData.main.temp)} °C
+            Wind: ${currentData.wind.speed} M/S
+            Humidity: ${currentData.main.humidity}%
+            `);
+
+            $('#today').append(`
+                <ul class="current-weather row">
+                    <li>Temp: ${Math.round(currentData.main.temp)} °C</li> 
+                    <li>Humidity: ${currentData.main.humidity}%</li>
+                    <li>Wind Speed: ${currentData.wind.speed} M/S</li>
+                </ul>
+            `);
+
+            //API for getting 5 day weather forecast for a city
+            $.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`)
+                .then(function (forecastData) {
+                    console.log(forecastData);
+
+                    $('#forecast').append(forecastData);
+                });
+        });
+});
 
 
 
-var apiKey = '903bdd38e14db35f1d502c3f3db85a20';
-var city = 'London'; //this needs to be changed to user input
+
+// var apiKey = '903bdd38e14db35f1d502c3f3db85a20';
+//     var city = 'London'; //this needs to be changed to user input
 
 
-//API for getting current weather info for a city
-$.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
-    .then(function(currentData) {
-        var lon = currentData.coord.lon;
-        var lat = currentData.coord.lat;
+//     //API for getting current weather info for a city
+//     $.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
+//         .then(function (currentData) {
+//             var lon = currentData.coord.lon;
+//             var lat = currentData.coord.lat;
 
-        console.log(currentData);
-        console.log(`
-        ____Current Conditions____
-        Temp: ${Math.round(currentData.main.temp)} °C
-        Wind: ${currentData.wind.speed} M/S
-        Humidity: ${currentData.main.humidity}%
-        `);
+//             console.log(currentData);
+//             console.log(`
+//             ____Current Conditions____
+//             Temp: ${Math.round(currentData.main.temp)} °C
+//             Wind: ${currentData.wind.speed} M/S
+//             Humidity: ${currentData.main.humidity}%
+//             `);
 
-        //API for getting 5 day weather forecast for a city
-        $.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`)
-            .then(function(forecastData) {
-                console.log(forecastData);
-            });
-    });
+//             $('#today').append(`
+//                 <ul class="current-weather row">
+//                     <li>Temp: ${Math.round(currentData.main.temp)} °C</li> 
+//                     <li>Humidity: ${currentData.main.humidity}%</li>
+//                     <li>Wind Speed: ${currentData.wind.speed} M/S</li>
+//                 </ul>
+//             `);
+
+//             //API for getting 5 day weather forecast for a city
+//             $.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`)
+//                 .then(function (forecastData) {
+//                     console.log(forecastData);
+
+//                     $('#forecast').append(forecastData);
+//                 });
+//         });
 
 
-   
+
 
 
     //Getting users current location:
