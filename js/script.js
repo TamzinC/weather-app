@@ -37,7 +37,7 @@ $('#search-button').click(function(event) {
 $('#search-button').on('click', function () {
 
     var apiKey = '903bdd38e14db35f1d502c3f3db85a20';
-    var city = $('input'); //this needs to be changed to user input
+    var city = $('input').val(); //this needs to be changed to user input
 
 
     //API for getting current weather info for a city
