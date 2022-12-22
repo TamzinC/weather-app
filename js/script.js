@@ -27,6 +27,13 @@
 
 // console.log(currentDay);
 
+$('#search-button').click(function(event) {
+    event.preventDefault();
+    console.log(event);
+    console.log($('#search-input').val());
+})
+
+
 $('#search-button').on('click', function () {
 
     var apiKey = '903bdd38e14db35f1d502c3f3db85a20';
