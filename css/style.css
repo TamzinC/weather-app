@@ -65,6 +65,14 @@ input {
     margin: 20px;
 }
 
+.current-forecast {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-height: 100px;
+}
+
 li {
     margin: 10px;
 }

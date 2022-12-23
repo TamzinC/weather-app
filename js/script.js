@@ -5,36 +5,51 @@ var forecastWeather = $('#forecast');
 var apiKey = '903bdd38e14db35f1d502c3f3db85a20';
 
 
+//Grabbing the relevant API data for current weather based on user input
 function displayCurrentWeather(currentData) {
     console.log(currentData);
     currentWeather.html('');
+
+    var weatherIcon = currentData.weather[0];
     currentWeather.append(`
-    <h1>${currentData.name}</h1>
+    <h1>${currentData.name} <img src="https://openweathermap.org/img/w/${weatherIcon.icon}.png" alt="${weatherIcon.description}"/></h1>
     <ul class="current-weather row">
     <li>Temp: ${Math.round(currentData.main.temp)} °C</li> 
+    <li>Wind: ${currentData.wind.speed} M/S</li>
     <li>Humidity: ${currentData.main.humidity}%</li>
-    <li>Wind Speed: ${currentData.wind.speed} M/S</li>
     </ul>
     `);
-    
-    //need to grab relevant data for forecasted weather like above
-    
+
 }
 
+//Grabbing the relevant API data for 5-day forcasted data based on user input
 function displayForecastWeather(forecastData) {
     console.log(forecastData);
     forecastWeather.html('');
-    forecastWeather.append(`
-    <h1>${forecastData.city.name}</h1>
-    ${JSON.stringify(forecastData, null, 2)}
-    `)
 
-    for (var forecastDay = 0; forecastData.list < 6; forecastDay++) {
+    var output = '';
+    for (let index = 0; index <= 5; index++) {
+        console.log(forecastData.list[index]);
+        var forecast = forecastData.list[index];
+        var weatherIcon = forecast.weather[0];
+        output += `<li>
+        <p>${dt_text}</p>
+        <img src="https://openweathermap.org/img/w/${weatherIcon.icon}.png" alt="${weatherIcon.description}"/>
+        <p>Temp: ${forecast.main.temp} °C</p>
+        <p>Wind: ${forecast.wind.speed} M/S</p>
+        <p>Humidity: ${forecast.main.humidity}%</p>
+        </li>
+        `};
 
+        forecastWeather.append(`
+        <h1>5-Day Forecast:</h1>
+        <ul class="current-forecast">${output}</ul>
+        `)
     };
-};
+    
 
 
+//Creating API requests to get current and forecasted weather
 function getWeather(event) {
     event.preventDefault();
 
@@ -56,16 +71,14 @@ function getWeather(event) {
 
             $.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`)
                 .then(function (forecastData) {
-                    // console.log(forecastData);
-
                     displayForecastWeather(forecastData);
                 });
 
-                searchInput.val('');
+            searchInput.val('');
         });
 }
 
-
+//Adding event listener on the submit button
 function init() {
     searchButton.click(getWeather);
 }
