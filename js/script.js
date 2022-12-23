@@ -1,57 +1,64 @@
-var searchInput = $('#search-button');
+var searchInput = $('#search-input');
+var searchButton = $('#search-button');
 var currentWeather = $('#today');
 var forecastWeather = $('#forecast');
+var apiKey = '903bdd38e14db35f1d502c3f3db85a20';
 
 
-function displayWeather() {
+function displayCurrentWeather(currentData) {
+    console.log(currentData);
     currentWeather.html('');
-    forecastWeather.html('');
-
     currentWeather.append(`
-                <h1>${searchInput}</h1>
-                <ul class="current-weather row">
-                    <li>Temp: ${Math.round(currentData.main.temp)} °C</li> 
-                    <li>Humidity: ${currentData.main.humidity}%</li>
-                    <li>Wind Speed: ${currentData.wind.speed} M/S</li>
-                </ul>
-            `);
-
+    <h1>${currentData.name}</h1>
+    <ul class="current-weather row">
+    <li>Temp: ${Math.round(currentData.main.temp)} °C</li> 
+    <li>Humidity: ${currentData.main.humidity}%</li>
+    <li>Wind Speed: ${currentData.wind.speed} M/S</li>
+    </ul>
+    `);
+    
     //need to grab relevant data for forecasted weather like above
+    
+}
+
+function displayForecastWeather(forecastData) {
+    console.log(forecastData);
+    forecastWeather.html('');
     forecastWeather.append(`
-    $('#forecast').append(forecastData);
+    <h1>${forecastData.city.name}</h1>
+    ${JSON.stringify(forecastData, null, 2)}
     `)
 
-}
+    for (var forecastDay = 0; forecastData.list < 6; forecastDay++) {
+
+    };
+};
 
 
 function getWeather(event) {
     event.preventDefault();
 
-    var apiKey = '903bdd38e14db35f1d502c3f3db85a20';
-    var city = $('input').val();
-
-
     //API for getting current weather info for a city
-    $.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
+    $.get(`https://api.openweathermap.org/data/2.5/weather?q=${searchInput.val()}&appid=${apiKey}&units=metric`)
         .then(function (currentData) {
             var lon = currentData.coord.lon;
             var lat = currentData.coord.lat;
 
-            console.log(currentData);
-            console.log(`
-            ____Current Conditions____
-            Temp: ${Math.round(currentData.main.temp)} °C
-            Wind: ${currentData.wind.speed} M/S
-            Humidity: ${currentData.main.humidity}%
-            `);
+            // console.log(currentData);
+            // console.log(`
+            // ____Current Conditions____
+            // Temp: ${Math.round(currentData.main.temp)} °C
+            // Wind: ${currentData.wind.speed} M/S
+            // Humidity: ${currentData.main.humidity}%
+            // `);
 
-            displayWeather(currentData.coord);
+            displayCurrentWeather(currentData);
 
             $.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`)
                 .then(function (forecastData) {
-                    console.log(forecastData);
+                    // console.log(forecastData);
 
-                    displayWeather(forecastData.cod);
+                    displayForecastWeather(forecastData);
                 });
 
                 searchInput.val('');
@@ -60,7 +67,7 @@ function getWeather(event) {
 
 
 function init() {
-    searchInput.click(getWeather);
+    searchButton.click(getWeather);
 }
 
 init();
