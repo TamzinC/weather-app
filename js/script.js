@@ -10,9 +10,12 @@ function displayCurrentWeather(currentData) {
     console.log(currentData);
     currentWeather.html('');
 
+    var currentDay = moment().format('DD/MM/YYYY');
     var weatherIcon = currentData.weather[0];
+    console.log(currentDay);
+
     currentWeather.append(`
-    <h1>${currentData.name} <img src="https://openweathermap.org/img/w/${weatherIcon.icon}.png" alt="${weatherIcon.description}"/></h1>
+    <h1>${currentData.name} (${currentDay}) <img src="https://openweathermap.org/img/w/${weatherIcon.icon}.png" alt="${weatherIcon.description}"/></h1>
     <ul class="current-weather row">
     <li>Temp: ${Math.round(currentData.main.temp)} °C</li> 
     <li>Wind: ${currentData.wind.speed} M/S</li>
@@ -33,7 +36,7 @@ function displayForecastWeather(forecastData) {
         var forecast = forecastData.list[index];
         var weatherIcon = forecast.weather[0];
         output += `<li>
-        <p>${dt_text}</p>
+        <p>${forecast.dt_txt}</p>
         <img src="https://openweathermap.org/img/w/${weatherIcon.icon}.png" alt="${weatherIcon.description}"/>
         <p>Temp: ${forecast.main.temp} °C</p>
         <p>Wind: ${forecast.wind.speed} M/S</p>
@@ -41,12 +44,12 @@ function displayForecastWeather(forecastData) {
         </li>
         `};
 
-        forecastWeather.append(`
+    forecastWeather.append(`
         <h1>5-Day Forecast:</h1>
         <ul class="current-forecast">${output}</ul>
         `)
-    };
-    
+};
+
 
 
 //Creating API requests to get current and forecasted weather
@@ -58,15 +61,6 @@ function getWeather(event) {
         .then(function (currentData) {
             var lon = currentData.coord.lon;
             var lat = currentData.coord.lat;
-
-            // console.log(currentData);
-            // console.log(`
-            // ____Current Conditions____
-            // Temp: ${Math.round(currentData.main.temp)} °C
-            // Wind: ${currentData.wind.speed} M/S
-            // Humidity: ${currentData.main.humidity}%
-            // `);
-
             displayCurrentWeather(currentData);
 
             $.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`)
@@ -108,53 +102,6 @@ init();
     - Pull search history from localStorage
     - If search history is not empty, output each city to the search history display in the DOM
 */
-
-//Add event listener for input (show weather + add to search history if not already there)
-
-// currentDayString = moment().format('dddd, MMMM Do');
-// currentDay.text(currentDayString);
-
-// console.log(currentDay);
-
-// $('#search-button').click(function(event) {
-//     event.preventDefault();
-
-//     var apiKey = '903bdd38e14db35f1d502c3f3db85a20';
-//     var city = $('input').val(); //this needs to be changed to user input
-
-
-//     //API for getting current weather info for a city
-//     $.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
-//         .then(function (currentData) {
-//             var lon = currentData.coord.lon;
-//             var lat = currentData.coord.lat;
-
-//             console.log(currentData);
-//             console.log(`
-//             ____Current Conditions____
-//             Temp: ${Math.round(currentData.main.temp)} °C
-//             Wind: ${currentData.wind.speed} M/S
-//             Humidity: ${currentData.main.humidity}%
-//             `);
-
-//             $('#today').append(`
-//                 <ul class="current-weather row">
-//                     <li>Temp: ${Math.round(currentData.main.temp)} °C</li> 
-//                     <li>Humidity: ${currentData.main.humidity}%</li>
-//                     <li>Wind Speed: ${currentData.wind.speed} M/S</li>
-//                 </ul>
-//             `);
-
-//             //API for getting 5 day weather forecast for a city
-//             $.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`)
-//                 .then(function (forecastData) {
-//                     console.log(forecastData);
-
-//                     $('#forecast').append(forecastData);
-//                 });
-//         });
-// });
-
 
 
 
