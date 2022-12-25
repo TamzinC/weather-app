@@ -30,26 +30,31 @@ function displayForecastWeather(forecastData) {
     console.log(forecastData);
     forecastWeather.html('');
 
+    var forecastDays = forecastData.list.filter(filterByDateTime);
+    console.log(forecastDays);
+
     var output = '';
-    for (let index = 0; index <= 5; index++) {
-        console.log(forecastData.list[index]);
-        var forecast = forecastData.list[index];
+    for (let index = 0; index < forecastDays.length; index++) {
+        var forecast = forecastDays[index];
         var weatherIcon = forecast.weather[0];
-        output += `<li>
+        output += `<li class="shadow-lg p-3 rb-5 bg-white rounded">
         <p>${forecast.dt_txt}</p>
         <img src="https://openweathermap.org/img/w/${weatherIcon.icon}.png" alt="${weatherIcon.description}"/>
-        <p>Temp: ${forecast.main.temp} °C</p>
+        <p>Temp: ${Math.round(forecast.main.temp)} °C</p>
         <p>Wind: ${forecast.wind.speed} M/S</p>
         <p>Humidity: ${forecast.main.humidity}%</p>
         </li>
         `};
 
     forecastWeather.append(`
-        <h1>5-Day Forecast:</h1>
+        <h3>5-Day Forecast:</h1>
         <ul class="current-forecast">${output}</ul>
         `)
 };
 
+function filterByDateTime(forecastDate) {
+    return forecastDate.dt_txt.indexOf('12:00:00') > 0;
+}
 
 
 //Creating API requests to get current and forecasted weather
