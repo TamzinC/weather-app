@@ -2,6 +2,7 @@ var searchInput = $('#search-input');
 var searchButton = $('#search-button');
 var currentWeather = $('#today');
 var forecastWeather = $('#forecast');
+var searchHistory = $('#history');
 var apiKey = '903bdd38e14db35f1d502c3f3db85a20';
 
 
@@ -33,6 +34,7 @@ function displayForecastWeather(forecastData) {
     var forecastDays = forecastData.list.filter(filterByDateTime);
     console.log(forecastDays);
 
+    //Running for loop through forecastData object to get the required info
     var output = '';
     for (let index = 0; index < forecastDays.length; index++) {
         var forecast = forecastDays[index];
@@ -52,8 +54,19 @@ function displayForecastWeather(forecastData) {
         `)
 };
 
+//filtering the forecast weather data to only show data for the next 5 days instead of every 3hrs
 function filterByDateTime(forecastDate) {
     return forecastDate.dt_txt.indexOf('12:00:00') > 0;
+};
+
+//Setting localStorage to save user search history and display below submit button
+function addToSearchHistory () {
+    localStorage.setItem('location', JSON.stringify(searchInput));
+
+    var location = JSON.parse(localStorage.getItem('location'));
+    searchHistory.append (`
+    <p>${location}</p>
+    `);
 }
 
 
@@ -61,19 +74,22 @@ function filterByDateTime(forecastDate) {
 function getWeather(event) {
     event.preventDefault();
 
-    //API for getting current weather info for a city
+    //API request for getting current weather info for a location
     $.get(`https://api.openweathermap.org/data/2.5/weather?q=${searchInput.val()}&appid=${apiKey}&units=metric`)
         .then(function (currentData) {
             var lon = currentData.coord.lon;
             var lat = currentData.coord.lat;
             displayCurrentWeather(currentData);
 
+            //API request for getting forecasted weather for a location
             $.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`)
                 .then(function (forecastData) {
                     displayForecastWeather(forecastData);
                 });
 
             searchInput.val('');
+            addToSearchHistory();
+            
         });
 }
 
