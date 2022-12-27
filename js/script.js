@@ -19,8 +19,9 @@ function displayCurrentWeather(currentData) {
     currentWeather.append(`
     <div class="mt-3 jumbotron jumbotron-fluid">
     <div class="container">
-    <h2>${currentData.name} (${currentDay}) <img src="https://openweathermap.org/img/w/${weatherIcon.icon}.png" alt="${weatherIcon.description}"/></h1>
-    <ul class="current-weather row">
+    <h2 class="ml-3">${currentData.name} (${currentDay})</h1>
+    <img class="current-img row" src="https://openweathermap.org/img/w/${weatherIcon.icon}.png" alt="${weatherIcon.description}"/>
+    <ul class="current-weather row ml-3">
     <li>Temp: ${Math.round(currentData.main.temp)} °C</li> 
     <li>Wind: ${currentData.wind.speed} M/S</li>
     <li>Humidity: ${currentData.main.humidity}%</li>
