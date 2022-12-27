@@ -17,11 +17,11 @@ function displayCurrentWeather(currentData) {
     console.log(currentDay);
 
     currentWeather.append(`
-    <div class="mt-3 jumbotron jumbotron-fluid">
+    <div class="mt-3 jumbotron jumbotron-fluid p-4">
     <div class="container">
-    <h2 class="ml-3">${currentData.name} (${currentDay})</h1>
+    <h2 class="ml-2">${currentData.name} (${currentDay})</h1>
     <img class="current-img row" src="https://openweathermap.org/img/w/${weatherIcon.icon}.png" alt="${weatherIcon.description}"/>
-    <ul class="current-weather row ml-3">
+    <ul class="current-weather row ml-2">
     <li>Temp: ${Math.round(currentData.main.temp)} °C</li> 
     <li>Wind: ${currentData.wind.speed} M/S</li>
     <li>Humidity: ${currentData.main.humidity}%</li>

@@ -53,6 +53,10 @@ input {
     height: 35px;
 }
 
+.jumbotron {
+    height: 300px;
+}
+
 .current-weather {
     list-style: none;
     flex-direction: column;
