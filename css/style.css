@@ -35,11 +35,6 @@ h1 {
     margin: 15px;
 }
 
-.weather-header {
-    background-color: #82AAE3;
-    height: 80px;
-}
-
 h2, input, button, hr {
     margin: 6px;
     width: 100%;
@@ -53,10 +48,9 @@ input {
 }
 
 .search-button {
-    background-color: #91D8E4;
     border: none;
     border-radius: 4px;
-    height: 25px;
+    height: 35px;
 }
 
 .current-weather {
@@ -65,12 +59,18 @@ input {
     margin: 20px;
 }
 
-.current-forecast {
+.future-forecast {
     list-style: none;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     max-height: 100px;
+}
+
+.future-forecast img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 li {
