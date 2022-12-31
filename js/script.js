@@ -31,7 +31,7 @@ function displayCurrentWeather(currentData) {
         <img class="current-img row" src="https://openweathermap.org/img/w/${weatherIcon.icon}.png" alt="${weatherIcon.description}"/>
             <ul class="current-weather row ml-2">
                 <li>Temp: ${Math.round(currentData.main.temp)} °C</li> 
-                <li>Wind: ${currentData.wind.speed} M/S</li>
+                <li>Wind: ${Math.round(currentData.wind.speed)} M/S</li>
                 <li>Humidity: ${currentData.main.humidity}%</li>
             </ul>
         </div>
@@ -61,7 +61,7 @@ function displayForecastWeather(forecastData) {
                     <p>${forecastDay}</p>
                     <img src="https://openweathermap.org/img/w/${weatherIcon.icon}.png" alt="${weatherIcon.description}"/>
                     <p>Temp: ${Math.round(forecast.main.temp)} °C</p>
-                    <p>Wind: ${forecast.wind.speed} M/S</p>
+                    <p>Wind: ${Math.round(forecast.wind.speed)} M/S</p>
                     <p>Humidity: ${forecast.main.humidity}%</p>
                 </li>
         `};
@@ -125,9 +125,9 @@ function getPreviouslySearchedTermsFromLocalStorage() {
 
 //Creating click event for all search history buttons inside #history div
 function attachClickEventToPreviousSearchButtons() {
-    $('#history button').on('click', function() {
+    $('#history button').on('click', function () {
         searchInput.val($(this).data('location')); //repopulating searchInput using data-location attribute
-        
+
         //Removing and adding classes to change the highlighted button colours when selected
         $('#history button').removeClass('btn-info').addClass('btn-secondary');
         $(this).removeClass('btn-secondary').addClass('btn-info');
@@ -152,21 +152,28 @@ function getWeather(event) {
                 });
 
             searchInput.val('');
+
         });
-}
+
+    //Adding if statement to check for blank submits and invalid locations due to spelling errors
+    if (searchInput.val() === '' || currentData && forecastData) {
+        alert("Location doesn't exist! Check spelling and try again");
+        // $('#alert-modal').modal('show');
+    };
+};
 
 //Adding event listener on the submit button
 function init() {
     getPreviouslySearchedTermsFromLocalStorage();
 
-    searchButton.click(function(event) {
+    searchButton.click(function (event) {
         event.preventDefault();
         getWeather();
         addToSearchHistory();
     });
 
     //Adding event listener for enter key in the input section
-    searchInput.keypress(function(event) {
+    searchInput.keypress(function (event) {
         if (event.which == '13') {
             event.preventDefault();
             getWeather();

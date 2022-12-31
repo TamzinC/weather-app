@@ -38,7 +38,8 @@
             </div>
           </div>
         </form>
-        <button type="button" class="btn btn-warning clear-button button-block mt-2 mb-2" id="clear-button" aria-label="clear search" onclick="clearPreviousSearch()">Clear Search</button>
+        <button type="button" class="btn btn-warning clear-button button-block mt-2 mb-2" id="clear-button"
+          aria-label="clear search" onclick="clearPreviousSearch()">Clear Search</button>
         <div class="list-group" id="history"></div>
       </aside>
 
@@ -48,6 +49,46 @@
       </div>
     </div>
   </div>
+
+  
+  <!-- Modal -->
+  <div id="alert-modal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Error:</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Location doesn't exist! Check spelling and try again.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="modal fade" id="alert-modal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="alertModalLabel">Error:</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Location doesn't exist! Check spelling and try again
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
 
   <!-- Moment.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
