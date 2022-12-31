@@ -83,4 +83,10 @@ input {
 
 li {
     margin: 10px;
+    line-height: 10px;
+}
+
+/* MOBILE RESPONSIVE STYLES */
+@media (max-width: 768px) {
+    grid-template-columns: 1fr, 1fr;
 }

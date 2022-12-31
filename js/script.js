@@ -58,9 +58,9 @@ function displayForecastWeather(forecastData) {
         //Creating the html elements for the forecasted weather
         output += `
                 <li class="shadow-lg p-3 rb-5 bg-white rounded">
-                    <p>${forecastDay}</p>
+                    <p class="text-center mb-4 font-weight-bold">${forecastDay}</p>
                     <img src="https://openweathermap.org/img/w/${weatherIcon.icon}.png" alt="${weatherIcon.description}"/>
-                    <p>Temp: ${Math.round(forecast.main.temp)} °C</p>
+                    <p class="mt-4">Temp: ${Math.round(forecast.main.temp)} °C</p>
                     <p>Wind: ${Math.round(forecast.wind.speed)} M/S</p>
                     <p>Humidity: ${forecast.main.humidity}%</p>
                 </li>
@@ -68,7 +68,7 @@ function displayForecastWeather(forecastData) {
 
     //Adding forecasted weather data to html
     forecastWeather.append(`
-        <h3>5-Day Forecast:</h3>
+        <h3 class="d-flex flex-wrap">5-Day Forecast:</h3>
         <ul class="future-forecast">${output}</ul>
         `)
 };
