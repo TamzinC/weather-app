@@ -68,7 +68,7 @@ function displayForecastWeather(forecastData) {
 
     //Adding forecasted weather data to html
     forecastWeather.append(`
-        <h3 class="d-flex flex-wrap">5-Day Forecast:</h3>
+        <h3 class="d-flex flex-wrap">5 Day Forecast:</h3>
         <ul class="future-forecast">${output}</ul>
         `)
 };
@@ -82,6 +82,10 @@ function filterByDateTime(forecastDate) {
 function addToSearchHistory() {
     var location = searchInput.val(); //Getting the searched location from the search input
 
+    if (location == '' || error.responseJSON.cod == '404') {
+        return;
+    }
+
     //Running if statement to see if the searched location is already stored in localStorage
     if (localStorage.getItem('location') == null) {
         localStorageArray.push(location); //Pushing searched term into an array if it doesn't exist
@@ -92,12 +96,13 @@ function addToSearchHistory() {
         if (localStorageArray.indexOf(location) === -1) {
             localStorageArray.push(location);
         }
+
+        //Adding searched term as a button under the search history section
+        searchHistory.append(`
+            <button data-location="${location}" type="button" class="location-history btn btn-secondary btn-block m-1">${location}</button>
+        `);
     }
 
-    //Adding searched term as a button under the search history section
-    searchHistory.append(`
-        <button data-location="${location}" type="button" class="location-history btn btn-secondary btn-block m-1">${location}</button>
-    `);
 
     //Stringifying searched terms array into a string
     localStorage.setItem('location', JSON.stringify(localStorageArray));
@@ -138,6 +143,14 @@ function attachClickEventToPreviousSearchButtons() {
 
 //Creating API requests to get current and forecasted weather
 function getWeather(event) {
+
+    //Adding if statement to check for blank inputs
+    if (searchInput.val() == '' && !isNaN(searchInput.val())) {
+        $('.modal-body').html('<p>Please enter a location.</p>');
+        $('#alert-modal').modal('show');
+        return;
+    }
+
     //API request for getting current weather info for a location
     $.get(`https://api.openweathermap.org/data/2.5/weather?q=${searchInput.val()}&appid=${apiKey}&units=metric`)
         .then(function (currentData) {
@@ -151,15 +164,17 @@ function getWeather(event) {
                     displayForecastWeather(forecastData);
                 });
 
+            addToSearchHistory();
             searchInput.val('');
 
+        }).fail(function (error) {
+            //Checking for invalid locations due to spelling errors
+            if (error.responseJSON.cod == '404') {
+                $('.modal-body').html('<p>Location does not exist.</p>');
+                $('#alert-modal').modal('show');
+                return;
+            };
         });
-
-    //Adding if statement to check for blank submits and invalid locations due to spelling errors
-    if (searchInput.val() === '' || currentData && forecastData) {
-        alert("Location doesn't exist! Check spelling and try again");
-        // $('#alert-modal').modal('show');
-    };
 };
 
 //Adding event listener on the submit button
@@ -169,7 +184,6 @@ function init() {
     searchButton.click(function (event) {
         event.preventDefault();
         getWeather();
-        addToSearchHistory();
     });
 
     //Adding event listener for enter key in the input section
