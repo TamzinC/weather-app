@@ -68,8 +68,8 @@ function displayForecastWeather(forecastData) {
     //Adding forecasted weather data to html
     forecastWeather.append(`
         <h3 class="d-flex flex-wrap">5 Day Forecast:</h3>
-        <div class="row">
-            <ul class="future-forecast">${output}</ul>
+        <div class="forecast-days">
+            <ul class="future-forecast d-flex flex row">${output}</ul>
         </div>
         `)
 };
@@ -102,7 +102,7 @@ function addToSearchHistory() {
     
     //Adding searched term as a button under the search history section
     searchHistory.append(`
-        <button data-location="${location}" type="button" class="location-history btn btn-secondary btn-block m-1">${location}</button>
+        <button data-location="${location}" type="button" class="location-history btn btn-secondary btn-block">${location}</button>
     `);
 
     //Stringifying searched terms array into a string
@@ -122,7 +122,7 @@ function getPreviouslySearchedTermsFromLocalStorage() {
             var place = localStorageArray[i];
 
             searchHistory.append(`
-                <button data-location="${place}" type="button" class="location-history btn btn-secondary btn-block m-1">${place}</button>
+                <button data-location="${place}" type="button" class="location-history btn btn-secondary btn-block">${place}</button>
             `)
         }
     }
@@ -165,7 +165,9 @@ function getWeather(event) {
                     displayForecastWeather(forecastData);
                 });
 
-            addToSearchHistory();
+            if (event != undefined) {
+                addToSearchHistory();
+            }
             searchInput.val('');
             
         }).fail(function (error) {

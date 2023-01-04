@@ -35,13 +35,10 @@ h1 {
     margin: 15px;
 }
 
-h2, input, button, hr {
-    margin: 6px;
+.container-fluid h2, .container-fluid input, .container-fluid button, .container-fluid hr {
     width: 100%;
-}
-
-.input-group .btn {
-    width: 100px;
+    margin-top: 6px;
+    margin-bottom: 6px;
 }
 
 input {
