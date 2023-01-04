@@ -40,6 +40,10 @@ h2, input, button, hr {
     width: 100%;
 }
 
+.input-group .btn {
+    width: 100px;
+}
+
 input {
     height: 30px;
     padding: 8px;
@@ -63,14 +67,14 @@ input {
     margin: 20px;
 }
 
-/* .current-img {
-    justify-content: space-around;
-} */
+.forecast {
+    display: flex;
+
+}
 
 .future-forecast {
     list-style: none;
-    display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     flex-wrap: wrap;
     max-height: 100px;
 }

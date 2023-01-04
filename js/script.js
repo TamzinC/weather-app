@@ -68,7 +68,9 @@ function displayForecastWeather(forecastData) {
     //Adding forecasted weather data to html
     forecastWeather.append(`
         <h3 class="d-flex flex-wrap">5 Day Forecast:</h3>
-        <ul class="future-forecast">${output}</ul>
+        <div class="row">
+            <ul class="future-forecast">${output}</ul>
+        </div>
         `)
 };
 
@@ -96,12 +98,12 @@ function addToSearchHistory() {
             localStorageArray.push(location);
         }
 
-        //Adding searched term as a button under the search history section
-        searchHistory.append(`
-            <button data-location="${location}" type="button" class="location-history btn btn-secondary btn-block m-1">${location}</button>
-        `);
     }
-
+    
+    //Adding searched term as a button under the search history section
+    searchHistory.append(`
+        <button data-location="${location}" type="button" class="location-history btn btn-secondary btn-block m-1">${location}</button>
+    `);
 
     //Stringifying searched terms array into a string
     localStorage.setItem('location', JSON.stringify(localStorageArray));
