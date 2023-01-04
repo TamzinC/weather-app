@@ -71,7 +71,6 @@ input {
 
 .future-forecast {
     list-style: none;
-    /* flex-direction: column; */
     flex-wrap: wrap;
     max-height: 100px;
 }
@@ -89,5 +88,20 @@ li {
 
 /* MOBILE RESPONSIVE STYLES */
 @media (max-width: 768px) {
-    grid-template-columns: 1fr, 1fr;
+    .form-label h2{
+        font-size: 15px;
+    }
+
+    button {
+        font-size: 5px;
+    }
+    
+    .jumbotron h2 {
+        font-size: 22px;
+    }
+
+    .jumbotron .current-weather {
+        font-size: 15px;
+        margin: 10px;
+    }
 }

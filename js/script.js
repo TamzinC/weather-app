@@ -165,9 +165,7 @@ function getWeather(event) {
                     displayForecastWeather(forecastData);
                 });
 
-            if (event != undefined) {
-                addToSearchHistory();
-            }
+            addToSearchHistory();
             searchInput.val('');
             
         }).fail(function (error) {
