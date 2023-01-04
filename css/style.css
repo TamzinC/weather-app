@@ -88,8 +88,8 @@ li {
 
 /* MOBILE RESPONSIVE STYLES */
 @media (max-width: 768px) {
-    .form-label h2{
-        font-size: 15px;
+    aside h2{
+        font-size: 8px;
     }
 
     button {
@@ -100,7 +100,7 @@ li {
         font-size: 22px;
     }
 
-    .jumbotron .current-weather {
+    .current-weather {
         font-size: 15px;
         margin: 10px;
     }
