@@ -54,7 +54,7 @@ input {
 }
 
 .jumbotron {
-    height: 300px;
+    height: 230px;
 }
 
 .current-weather {
@@ -63,9 +63,9 @@ input {
     margin: 20px;
 }
 
-.current-img {
+/* .current-img {
     justify-content: space-around;
-}
+} */
 
 .future-forecast {
     list-style: none;

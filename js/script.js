@@ -27,8 +27,7 @@ function displayCurrentWeather(currentData) {
     currentWeather.append(`
     <div class="mt-3 jumbotron jumbotron-fluid p-4">
         <div class="container">
-        <h2 class="ml-2">${currentData.name} (${currentDay})</h2>
-        <img class="current-img row" src="https://openweathermap.org/img/w/${weatherIcon.icon}.png" alt="${weatherIcon.description}"/>
+        <h2 class="ml-2">${currentData.name} (${currentDay})<img class="ml-4"src="https://openweathermap.org/img/w/${weatherIcon.icon}.png" alt="${weatherIcon.description}"/></h2>
             <ul class="current-weather row ml-2">
                 <li>Temp: ${Math.round(currentData.main.temp)} °C</li> 
                 <li>Wind: ${Math.round(currentData.wind.speed)} M/S</li>
@@ -82,7 +81,7 @@ function filterByDateTime(forecastDate) {
 function addToSearchHistory() {
     var location = searchInput.val(); //Getting the searched location from the search input
 
-    if (location == '' || error.responseJSON.cod == '404') {
+    if (location == '') {
         return;
     }
 
@@ -166,12 +165,13 @@ function getWeather(event) {
 
             addToSearchHistory();
             searchInput.val('');
-
+            
         }).fail(function (error) {
             //Checking for invalid locations due to spelling errors
             if (error.responseJSON.cod == '404') {
                 $('.modal-body').html('<p>Location does not exist.</p>');
                 $('#alert-modal').modal('show');
+                searchInput.val('');
                 return;
             };
         });
@@ -191,7 +191,6 @@ function init() {
         if (event.which == '13') {
             event.preventDefault();
             getWeather();
-            addToSearchHistory();
         }
     })
 }
