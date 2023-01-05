@@ -92,8 +92,8 @@ li {
         font-size: 8px;
     }
 
-    button {
-        font-size: 5px;
+    .location-history, .clear-button{
+        font-size: 12px !important;
     }
     
     .jumbotron h2 {

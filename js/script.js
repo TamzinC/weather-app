@@ -86,6 +86,10 @@ function addToSearchHistory() {
     if (location == '') {
         return;
     }
+    //if it's already in the array, don't add it again
+    if (localStorageArray.indexOf(location) > -1) {
+        return;
+    }
 
     //Running if statement to see if the searched location is already stored in localStorage
     if (localStorage.getItem('location') == null) {
